@@ -1,5 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const Thing = require ('./models/Thing');
+
+// Connexion à MongoDb
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb+srv://newtlouis:Vacances1@cluster0.hwmp8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+  { useNewUrlParser: true,
+    useUnifiedTopology: true })
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 const app = express();
 
