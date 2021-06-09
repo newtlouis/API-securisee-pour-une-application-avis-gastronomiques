@@ -5,7 +5,7 @@ const Thing = require ('./models/Thing');
 // Connexion à MongoDb
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://newtlouis:Vacances1@cluster0.hwmp8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://newtlouis:Vacances1@cluster0.hwmp8.mongodb.net/test?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -42,6 +42,18 @@ app.get('/api/sauces/:id',(req,res,next) => {
     Thing.findOne({_id : req.params.id})
     .then(thing => res.status(200).json(thing))
     .catch( err => res.status(404).json({err}));
+});
+
+app.put ('/api/sauces/:id',(req,res,next) => {
+Thing.updateOne({_id: req.params.id},{...req.body,_id: req.params.id})
+.then(() => req.status(200).json({message: 'Sauce modifiée'}))
+.catch(err => res.status(400).json({err}));
+});
+
+app.delete ('api/sauces/:id', (req,res,next) => {
+  Thing.deleteOne({_id: req.params.id})
+  .then(() => res.status(200).json({message: 'Sauce suprimée'}))
+  .catch(err => res.status(400).json({err}));
 });
 
 app.post('/api/sauces', (req,res,next) => {
