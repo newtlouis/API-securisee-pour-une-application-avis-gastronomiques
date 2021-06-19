@@ -26,6 +26,6 @@ const saucesRoutes = require('./routes/sauces');
 const usersRoutes = require('./routes/users');
 
 app.use('/api/sauces', saucesRoutes); 
-app.use('/api/auth',userRoutes);
+app.use('/api/auth',usersRoutes);
 
 module.exports = app;
