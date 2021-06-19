@@ -16,5 +16,22 @@ exports.signup = (req,res,next) => {
 };
 
 exports.login = (req,res,next) => {
-    c
+    User.findOne({email : req.body.email})
+        .then( user => {
+            if (!user) {return res.status(401).json({message:'Utilisateur non trouvé'})}
+            else {
+                bcrypt.compare(req.body.password, user.password)
+                    .then(valid => {
+                        if (!valid) {return res.status(401).json({message:'mot de passe incorrect'})}
+                        else {res.status(200).json({
+                            userId: user._id,
+                            token: 'TOKEN'
+                        })}
+                    })
+                    .catch(err => res.status(500).json({err}))
+             }
+        }
+
+        )
+        .catch(err => res.status(500).json({err}))
 };
