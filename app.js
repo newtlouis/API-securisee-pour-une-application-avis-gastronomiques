@@ -23,16 +23,9 @@ app.use((req, res, next) => {
   app.use(bodyParser.json());
 // Import routes
 const saucesRoutes = require('./routes/sauces');
+const usersRoutes = require('./routes/users');
 
 app.use('/api/sauces', saucesRoutes); 
-
-app.get('/api/loulou', (req,res,next) => {
-  res.send('louis');
-});
-
-app.post('/api/loulou',(req,res,next) => {
-console.log(req.body)
-});
-
+app.use('/api/auth',userRoutes);
 
 module.exports = app;
