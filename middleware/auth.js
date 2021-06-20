@@ -9,5 +9,5 @@ module.exports = (req,res,next) => {
         else { next()}
     }
 
-    catch (err) { res.status(401).json({error: 'Requête non authentifiée'})}
+    catch (err) { res.status(401).json({error: 'Requête nooon authentifiée'})}
 }
