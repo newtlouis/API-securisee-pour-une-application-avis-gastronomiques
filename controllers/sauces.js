@@ -1,4 +1,5 @@
 const Thing = require ('../models/Thing.js');
+const fs = require('fs');
 
 exports.createSauce = (req,res,next) => {
     console.log(req.body);
@@ -23,9 +24,18 @@ exports.showAllSauces = (req,res,next) => {
 };
 
 exports.deleteSauce = (req,res,next) => {
-    Thing.deleteOne({_id: req.params.id})
-  .then(() => res.status(200).json({message: 'Sauce suprimée'}))
-  .catch(err => res.status(400).json({err}));
+    Thing.findOne({_id: req.params.id})
+        .then(thing => {
+            const filename = thing.imageUrl.split('/images/')[1]; 
+            fs.unlink(`images/${filename}`, () => {
+                Thing.deleteOne({_id: req.params.id})
+                .then(() => res.status(200).json({message: 'Sauce suprimée'}))
+                .catch(err => res.status(400).json({err}));
+            } )
+        })
+        .catch(err => res.status(500).json({err}));
+        
+
 };
 
 exports.updateSauce = (req,res,next) => {
