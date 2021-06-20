@@ -2,14 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Thing = require ('../models/Thing.js');
 
-
-
+const auth = require('../middleware/auth');
 const saucesCtrl = require('../controllers/sauces');
-router.post('/',saucesCtrl.createSauce);
-router.get('/', saucesCtrl.showAllSauces);
-router.delete('/:id', saucesCtrl.deleteSauce);
-router.put('/:id', saucesCtrl.updateSauce);
-router.get('/:id', saucesCtrl.showSauce);
+
+router.post('/',auth,saucesCtrl.createSauce);
+router.get('/',auth, saucesCtrl.showAllSauces);
+router.delete('/:id',auth, saucesCtrl.deleteSauce);
+router.put('/:id',auth, saucesCtrl.updateSauce);
+router.get('/:id',auth, saucesCtrl.showSauce);
 
 
 router.post('/api/auth/login',(req, res, next) => {
