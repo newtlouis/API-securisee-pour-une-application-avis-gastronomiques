@@ -3,9 +3,10 @@ const router = express.Router();
 const Thing = require ('../models/Thing.js');
 
 const auth = require('../middleware/auth');
+const multer = require('../middleware/multer-config');
 const saucesCtrl = require('../controllers/sauces');
 
-router.post('/',auth,saucesCtrl.createSauce);
+router.post('/',auth,multer,saucesCtrl.createSauce);
 router.get('/',auth, saucesCtrl.showAllSauces);
 router.delete('/:id',auth, saucesCtrl.deleteSauce);
 router.put('/:id',auth, saucesCtrl.updateSauce);

@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Thing = require ('./models/Thing.js');
+const path = require('path');
 
 // Connexion à MongoDb
 const mongoose = require('mongoose');
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
 const saucesRoutes = require('./routes/sauces');
 const usersRoutes = require('./routes/users');
 
+app.use('/images',express.static(path.join(__dirname, 'images')));
 app.use('/api/sauces', saucesRoutes); 
 app.use('/api/auth',usersRoutes);
 
