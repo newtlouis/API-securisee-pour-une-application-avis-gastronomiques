@@ -14,10 +14,10 @@ exports.createSauce = (req,res,next) => {
     
     const thing = new Thing({
         ...thingObject,
-        likes :'0',
-        dislikes:'0',
-        usersLiked:'0',
-        usersDisliked:'0',
+        likes :0,
+        dislikes:0,
+        usersLiked:[],
+        usersDisliked:[],
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     });
     thing.save()
