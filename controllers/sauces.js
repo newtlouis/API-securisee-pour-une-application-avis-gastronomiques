@@ -10,7 +10,7 @@ exports.createSauce = (req,res,next) => {
 
 
     const thingObject = JSON.parse(req.body.sauce)
-    console.log(thingObject);
+    // console.log(thingObject);
 
 
     delete thingObject._id;
@@ -50,9 +50,9 @@ exports.deleteSauce = (req,res,next) => {
 };
 
 exports.updateSauce = (req,res,next) => {
-    console.log(req.params.id);
-    console.log(req.params);
-    console.log(req.body);
+    // console.log(req.params.id);
+    // console.log(req.params);
+    // console.log(req.body);
 
 
 
