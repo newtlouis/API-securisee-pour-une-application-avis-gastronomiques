@@ -25,9 +25,12 @@ app.use((req, res, next) => {
 // Import routes
 const saucesRoutes = require('./routes/sauces');
 const usersRoutes = require('./routes/users');
+const likeRoute = require('./routes/like');
 
 app.use('/images',express.static(path.join(__dirname, 'images')));
 app.use('/api/sauces', saucesRoutes); 
 app.use('/api/auth',usersRoutes);
+
+app.use('/api/sauces/:id/like', likeRoute);
 
 module.exports = app;

@@ -2,9 +2,12 @@ const Thing = require ('../models/Thing.js');
 const fs = require('fs');
 
 exports.createSauce = (req,res,next) => {
-    console.log(req.body);
-    console.log(req.body.sauce);
-    console.log(req.body.thing);
+    // console.log(req.body);
+    // console.log(req.body.sauce);
+    // console.log(req.body.thing);
+    // console.log(req.params);
+    console.log(req.params.id);
+
 
     const thingObject = JSON.parse(req.body.sauce)
     console.log(thingObject);
@@ -47,6 +50,12 @@ exports.deleteSauce = (req,res,next) => {
 };
 
 exports.updateSauce = (req,res,next) => {
+    console.log(req.params.id);
+    console.log(req.params);
+    console.log(req.body);
+
+
+
     const thingObject = req.file ? 
         {...JSON.parse(req.body.thing),
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
