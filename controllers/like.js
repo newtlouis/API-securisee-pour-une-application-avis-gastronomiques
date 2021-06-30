@@ -49,13 +49,10 @@ exports.like = (req,res,next) => {
                 .then(sauce => {
 
                     if (sauce.usersDisliked.includes(req.body.userId)) {
-                    var liste = sauce.usersDisliked;
-                    var newListe = liste.pop();
-                    // console.log(newListe);
-
+                 
                     Thing.updateOne({_id : idSauce},
                         {
-                            $set:{usersDisliked: newListe},
+                            $pull:{usersDisliked: req.body.userId},
                             $inc : {dislikes : -1}
                         }
                         )
@@ -63,13 +60,10 @@ exports.like = (req,res,next) => {
                     .catch(err => res.status(400).json({err}))
                     }
                     else {
-                        var liste = sauce.usersLiked;
-                        var newListe = liste.pop();
-                        // console.log(newListe);
-
+                                               
                          Thing.updateOne({_id : idSauce},
                         {
-                            $set:{usersLiked: newListe},
+                            $pull:{usersLiked: req.body.userId},
                             $inc : {likes : -1}
                         }
                         )
