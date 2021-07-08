@@ -1,13 +1,24 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require ('../models/User.js');
+const crypto = require('crypto');
+
 
 
 exports.signup = (req,res,next) => {
+
+    // Hashage du mdp
     bcrypt.hash(req.body.password,10)
         .then(hash => {
+
+            // chiffrage de l'email
+            const cipher = crypto.createCipher('aes192','a password');
+            var encrypted = cipher.update(req.body.email, 'utf-8','hex');
+            encrypted += cipher.final('hex');
+            console.log(encrypted);
+
             const user = new User({
-                email: req.body.email,
+                email: encrypted,
                 password: hash
             });
             user.save()
@@ -18,7 +29,12 @@ exports.signup = (req,res,next) => {
 };
 
 exports.login = (req,res,next) => {
-    User.findOne({email : req.body.email})
+    const cipher = crypto.createCipher('aes192','a password');
+    var encrypted = cipher.update(req.body.email, 'utf-8','hex');
+    encrypted += cipher.final('hex');
+    console.log(encrypted);
+
+    User.findOne({email : encrypted})
         .then( user => {
             if (!user) {return res.status(401).json({message:'Utilisateur non trouvé'})}
             else {
