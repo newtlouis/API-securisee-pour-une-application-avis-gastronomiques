@@ -34,6 +34,14 @@ exports.login = (req,res,next) => {
     encrypted += cipher.final('hex');
     console.log(encrypted);
 
+//     // Decrypter le cryptage
+// const crypto = require('crypto');
+// const decipher = crypto.createDecipher('aes192','a password');
+// var encrypted = 'Mettre la variable à déchiffrer';
+// var decrypted = decipher.update(encrypted,'hex','utf-8');
+// decrypted = decrypted + decipher.final('utf-8');
+// console.log(decrypted);
+
     User.findOne({email : encrypted})
         .then( user => {
             if (!user) {return res.status(401).json({message:'Utilisateur non trouvé'})}
